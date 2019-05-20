@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
+using RemoteSqlExecutor.Interfaces;
+using Unity;
+using Unity.Injection;
 
 namespace RemoteSqlExecutor
 {
@@ -13,5 +10,16 @@ namespace RemoteSqlExecutor
     /// </summary>
     public partial class App : Application
     {
+        
+        public App()
+        {
+            Container = new UnityContainer();
+            Container.RegisterType<IUnityContainer, UnityContainer>();
+            Container.RegisterType<IConfigurationManager, ConfigurationManager>();
+            Container.RegisterType<IListItemsBuilder, ListItemsBuilder>(new InjectionConstructor(Container.Resolve<IConfigurationManager>().GetNodes("//add")));
+            Properties.Add("Container", Container);
+        }
+
+        public static UnityContainer Container;
     }
 }

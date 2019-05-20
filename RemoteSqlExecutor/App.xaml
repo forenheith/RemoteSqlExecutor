@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:RemoteSqlExecutor"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="DataGridCell">
+            <Style.Setters>
+                <Setter Property="TextBlock.TextAlignment" Value="Center" />
+            </Style.Setters>
+        </Style>
     </Application.Resources>
 </Application>

@@ -4,19 +4,53 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RemoteSqlExecutor"
+        xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+        Title="BatchSqlExecutor" Height="350" Width="525">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="2,5">
+            <Button Name="executeButton">Execute</Button>
+        </StackPanel>
+        <TabControl Name="tcSample">
+            <TabItem Header="Databases">
+                <Grid>
 
-        <ListView x:Name="databasesList"/>
-    </Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <DataGrid
+                        x:Name="storesGrid"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Grid.Row="1"
+                        AutoGenerateColumns="True"
+                        Margin="15"
+                        FontSize="18"
+                        RowHeight="30"
+                        ColumnWidth="*">
+                        <DataGrid.RowHeaderTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <CheckBox
+                                        IsChecked="{Binding Path=IsSelected, Mode=TwoWay,
+                  RelativeSource={RelativeSource FindAncestor,
+                  AncestorType={x:Type DataGridRow}}}" />
+                                </Grid>
+                            </DataTemplate>
+                        </DataGrid.RowHeaderTemplate>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="SQL editor">
+
+            </TabItem>
+        </TabControl>
+
+    </DockPanel>
 </Window>
